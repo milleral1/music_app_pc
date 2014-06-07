@@ -2,23 +2,25 @@
   <div class="jumbotron col-md-3">
     <h2>parties</h2>
     <ul class="scroll list-group">
-      <li class="list-group-item" ng-repeat="party in parties" ng-click="partySelected(party)">{{party}}</li>
+      <li class="list-group-item" ng-repeat="party in parties" ng-click="partySelected(party)">{{party.name}}</li>
     </ul>
   </div>
 
   <div class="col-md-6">
     <div class="padding">
       <div class="padding jumbotron row">
-        Bacon ipsum dolor sit amet ground round fatback tenderloin ham. Pork strip steak meatball beef, shank frankfurter sirloin pork chop boudin chicken pork belly bacon venison drumstick. Frankfurter sirloin biltong, shoulder ham hock short ribs pork loin short loin jowl. Frankfurter biltong chuck meatball 
+        {{selectedParty.songs[0]}}
+
       </div>  
       <div class="jumbotron row">
         <div class="media">
           <a class="pull-left" href="#">
-            <img class="media-object" src="images/yeoman.png" alt="">
+            <img class="media-object" src={{selectedSong.thumbnail}} alt="">
           </a>
           <div class="media-body">
-            <h4 class="media-heading">song title</h4>
-            song description
+            <h4 class="media-heading">{{selectedSong.title}}</h4>
+            uploaded by {{selectedSong.user.name}}<br>
+            likes: {{selectedSong.likes.length}}
           </div>
         </div>
       </div>
@@ -29,8 +31,8 @@
     <h2>songs</h2>
     <ul class="list-group scroll">
       <li class="list-group-item"
-          ng-repeat="song in songs"
-          ng-click="songSelected(song)">{{song}}</li>
+          ng-repeat="song in selectedParty.songs"
+          ng-click="songSelected(song)">{{song.title}}</li>
     </ul>
   </div>
 </div>
