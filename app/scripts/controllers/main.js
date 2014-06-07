@@ -1,78 +1,27 @@
 'use strict';
 
 angular.module('musicPcApp')
-  .controller('MainCtrl', function ($scope, Auth) {
+  .controller('MainCtrl', function ($scope, Auth, Party) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
-    $scope.parties = [{
-      "id":11,
-      "name":"Miller's party",
-      "user_id":4,
-      "created_at":"2014-05-19T14:25:20.685Z",
-      "updated_at":"2014-05-19T14:25:20.685Z",
-      songs: [
-{
-                id: 261,
-                author: "EfratGoshChannel",
-                party_id: 12,
-                thumbnail: "http://i.ytimg.com/vi/_53JXbiqRcA/default.jpg",
-                url: "http://www.youtube.com/watch?v=_53JXbiqRcA&feature=youtube_gdata_player",
-                created_at: "2014-06-01T05:17:55.933Z",
-                title: "אפרת גוש- דיאטה",
-                user: {
-                id: 5,
-                name: "Ofer Aharon",
-                email: "ofer@aharon.co.uk",
-                thumbnail: "http://graph.facebook.com/100003032815603/picture"
-                },
-                likes: [
-                  {
-                  id: 61,
-                  user: {
-                  id: 3,
-                  name: "Nimrod Ben-Natan",
-                  email: "nimrodb@gmail.com",
-                  thumbnail: "http://graph.facebook.com/659564337/picture"
-                  }
-                  }
-                ]
-},
-{
-                  id: 262,
-                  author: "johnlegendVEVO",
-                  party_id: 12,
-                  thumbnail: "http://i.ytimg.com/vi/450p7goxZqg/default.jpg",
-                  url: "http://www.youtube.com/watch?v=450p7goxZqg&feature=youtube_gdata_player",
-                  created_at: "2014-06-01T05:22:01.156Z",
-                  title: "John Legend - All of Me",
-                  user: {
-                  id: 3,
-                  name: "Nimrod Ben-Natan",
-                  email: "nimrodb@gmail.com",
-                  thumbnail: "http://graph.facebook.com/659564337/picture"
-                  },
-                  likes: [
-                    {
-                    id: 72,
-                    user: {
-                        id: 3,
-                        name: "Nimrod Ben-Natan",
-                        email: "nimrodb@gmail.com",
-                        thumbnail: "http://graph.facebook.com/659564337/picture"
-                      }
-                    }
-                  ]
-}]
-}
-];
+    
+
 
     $scope.partySelected = function(party) {
     
       $scope.selectedParty = party;
+    Party.getUserParties().success(function(data) {
+      $scope.parties = data.user.parties;
+    });
+
+    $scope.partySelected = function(party) {
+      Party.getParty(party.id).success(function(data) {
+        $scope.party = data.party; 
+      });
     };
 
     $scope.songSelected = function(song) {
